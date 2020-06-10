@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/product/layout::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> Products List</h1>
+<a href="/create-product">Create New Product</a>
+<form>
+    Search product by name:
+    <input name="searchName" type="text"/>
+    <input type="submit" value="Search"/>
+</form><br/>
+<table d="products" border="1">
+    <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Picture</th>
+        <th>View</th>
+
+    </tr>
+    <th:block th:each="product : ${products}">
+        <tr>
+            <td th:text="${product.code}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price}"></td>
+            <td><img width="150px" height="150px" th:src="@{'/i/' + ${product.image}}"/></td>
+            <td><a th:href="@{/view-product/__${product.id}__ }">View</a></td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
+    <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
+    <a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+</div>
+<footer th:replace="/customer/layout :: footer"></footer>
+</body>
+</html>

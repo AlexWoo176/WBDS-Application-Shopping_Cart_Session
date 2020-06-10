@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit quantity</title>
+</head>
+<body>
+<h1>Edit quantity</h1>
+<p><a href="/products">Back to list product</a> </p>
+
+<!--/*@thymesVar id="item" type=""*/-->
+<form th:action="@{/shoppingcart/update-quantity/__${item.product.id}__}" th:object="${item}" method="post">
+    <img width="150px" height="150px" th:src="@{'/i/' + ${item.product.image}}">
+    <br>
+    Name: <span th:text="${item.product.name}"></span>
+    <br>
+    Description: <span th:text="${item.product.description}"></span>
+    <br>
+    Price: <span th:text="${item.product.price}"></span>
+    <br>
+    Quantity: <input th:value="${item.quantity}" name="quantity">
+    <br>
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>
